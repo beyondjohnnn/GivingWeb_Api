@@ -2,6 +2,8 @@
 
 User.delete_all
 
+puts "Creating template Users and charities..."
+
 User.create(
 	first_name: 'Eoghan',
 	last_name: 'Crowley',
@@ -34,15 +36,20 @@ Charity.create(
 	password_confirmation: 'abcdef'
 )
 
+puts "Cleaning up database(just in case) please wait..."
+
 FeaturedMember.delete_all
 Member.delete_all
 Donation.delete_all
 Legacy.delete_all
 Comment.delete_all
 
+puts "Connecting to Legacy database..."
+
 members = MemberMigration.build_member_hashes
 comments = CommentMigration.run()
 
+puts "Recovering Legacy Mysql data, this my take a few secs..."
 members.each do |member|
 	member[:member_data].delete('title')
 	member[:member_data].delete('meta_description')
@@ -59,8 +66,10 @@ members.each do |member|
 		comment['member_id'] = dbMember.id
 		Comment.create(comment)
 	end
-	pp related_comments
+	# pp related_comments
 end
+
+puts "Members done, moving on to recovering donations..."
 
 donations = DonationMigration.run()
 
@@ -68,3 +77,6 @@ donations.each do |donation|
 	donation.delete("post_id")
 	Donation.create(donation)
 end
+
+puts "was successfully! Rails is ready, winner
+"
