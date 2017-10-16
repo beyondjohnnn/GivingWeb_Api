@@ -1,0 +1,2 @@
+class CharityFeatureMember < ApplicationRecord
+end

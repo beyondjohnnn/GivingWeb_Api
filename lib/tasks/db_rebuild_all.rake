@@ -10,5 +10,4 @@ namespace :db_tasks do
   end
 end
 
-
 # use with great discretion ```bundle exec rake db_tasks:rebuild```
