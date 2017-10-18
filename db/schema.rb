@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171016102958) do
+ActiveRecord::Schema.define(version: 20171018092856) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,14 @@ ActiveRecord::Schema.define(version: 20171016102958) do
     t.bigint "member_id"
     t.integer "legacy_sql_id"
     t.index ["member_id"], name: "index_legacies_on_member_id"
+  end
+
+  create_table "member_tags", force: :cascade do |t|
+    t.bigint "member_id"
+    t.string "tag"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_member_tags_on_member_id"
   end
 
   create_table "members", force: :cascade do |t|
