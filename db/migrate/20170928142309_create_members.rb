@@ -8,6 +8,7 @@ class CreateMembers < ActiveRecord::Migration[5.1]
       t.string :location
       t.integer :goal
       t.string :url_image
+      t.string :tags
 
       t.timestamps
     end
