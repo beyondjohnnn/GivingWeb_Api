@@ -28,7 +28,15 @@ class CharityFeaturedMembersController < ApplicationController
     end
 
     def destroy
-      delete = CharityFeaturedMember.where(member_id: params[:id])[0].delete
-      render json: {out: "deleted"}
+      find_charity_id = CharityFeaturedMember.where(member_id: params[:id])[0].delete
+      # delete = CharityFeaturedMember.where(member_id: params[:id])[0].delete
+      featured_members = CharityFeaturedMember.where(charity_id: find_charity_id.charity_id).order(:position)
+
+      featured_members = featured_members.map do |members|
+        members.member.as_json({
+          include: [:donations, :comments]
+        })
+      end
+      render json: featured_members
     end
  end
