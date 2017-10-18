@@ -77,64 +77,44 @@ donations.each do |donation|
 	donation.delete("post_id")
 	Donation.create(donation)
 end
-
+# linking members to url images and adding relivent tags
 Member.find(21).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139584/SL-profile-pic-1_boe8ck.jpg")
-
 Member.find(20).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/guitar-445387_1920_ppu9nz.jpg")
 Member.find(20).update_column(:tags, "Music")
-
 Member.find(19).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139581/BP-Pic_rzrhay.jpg")
 Member.find(19).update_column(:tags, "Music")
-
 Member.find(18).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/Filip-Photo_vgleq3.jpg")
 Member.find(18).update_column(:tags, "Health,Empolyment")
-
 Member.find(17).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139580/20170530_140242_resized-1_xpw1jd.jpg")
 Member.find(17).update_column(:tags, "Home-Care,Housing")
-
 Member.find(16).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139581/book_vjdhwv.jpg")
 Member.find(16).update_column(:tags, "Education,Empolyment")
-
 Member.find(15).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139581/20170428_100657_medysq.jpg")
 Member.find(15).update_column(:tags, "Education,Empolyment")
-
 Member.find(14).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139581/20170426_162515_qhqfdc.jpg")
 Member.find(14).update_column(:tags, "Empolyment")
-
 Member.find(13).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/fullsizeoutput_ed8_tnwexk.jpg")
 Member.find(13).update_column(:tags, "Education")
-
 Member.find(12).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508324204/fullsizeoutput_ed3-380x295_vqtdym.jpg")
 Member.find(12).update_column(:tags, "Family")
-
 Member.find(11).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139584/titu_e5dax5.jpg")
-
 Member.find(10).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139584/Untitled-collage_adzwqn.jpg")
-
 Member.find(9).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/IMG_1665_uuz1rn.jpg")
 Member.find(9).update_column(:tags, "Housing")
-
 Member.find(8).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139583/john_jiiqjt.jpg")
 Member.find(8).update_column(:tags, "Social")
-
 Member.find(7).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139583/Mandy_rn3dm7.jpg")
 Member.find(7).update_column(:tags, "Furniture,Housing")
-
 Member.find(6).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139583/Mark_dcqcjm.jpg")
 Member.find(6).update_column(:tags, "Education")
-
 Member.find(5).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139584/Thomas-Photo_uo5uxg.jpg")
 Member.find(5).update_column(:tags, "Family")
-
 Member.find(4).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139581/Danny_ds8mzi.jpg")
 Member.find(4).update_column(:tags, "Art-Supplies,Education")
-
 Member.find(3).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139584/tara_m8pyom.jpg")
 Member.find(3).update_column(:tags, "Family")
-
 Member.find(2).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/Dariuz-Koziolek-Image_htzhff.jpg")
 Member.find(2).update_column(:tags, "Empolyment")
-
 Member.find(1).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/Edward-Ewa-square_ntsaqd.png")
 Member.find(1).update_column(:tags, "Education")
 
