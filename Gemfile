@@ -35,6 +35,10 @@ gem 'devise'
 gem 'responders'
 # JSON Web Tokens to provide Auth between front and back end
 gem 'jwt'
+# For Stripe payments
+gem 'stripe'
+# For environment variables in config/application.yml
+gem 'figaro'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
