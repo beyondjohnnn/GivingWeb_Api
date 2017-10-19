@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(version: 20171016102958) do
     t.string "location"
     t.integer "goal"
     t.string "url_image"
+    t.string "tags"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
