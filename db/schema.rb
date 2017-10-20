@@ -101,13 +101,13 @@ ActiveRecord::Schema.define(version: 20171020124559) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "sponsors_members", force: :cascade do |t|
+  create_table "sponsorships", force: :cascade do |t|
     t.bigint "sponsor_id"
     t.bigint "member_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["member_id"], name: "index_sponsors_members_on_member_id"
-    t.index ["sponsor_id"], name: "index_sponsors_members_on_sponsor_id"
+    t.index ["member_id"], name: "index_sponsorships_on_member_id"
+    t.index ["sponsor_id"], name: "index_sponsorships_on_sponsor_id"
   end
 
   create_table "users", force: :cascade do |t|

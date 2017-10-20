@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 	resources :charity_featured_members
 	resources :charges
 	resources :sponsors
-	resources :sponsors_members
+	resources :sponsorships
 	post '/sessions/charities', to: 'sessions#create_charity'
 	post '/registrations/charities', to: 'registrations#create_charity'
 end
