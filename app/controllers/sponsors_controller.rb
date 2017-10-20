@@ -1,0 +1,6 @@
+class SponsorsController < ApplicationController
+
+    def index
+      render json: Sponsor.all
+    end
+ end

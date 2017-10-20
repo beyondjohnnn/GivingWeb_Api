@@ -2,14 +2,14 @@ class MembersController < ApplicationController
 
     def index
       members = Member.order(id: :desc).as_json({
-        include: [:donations, :comments]
+        include: [:donations, :comments, :sponsors]
         })
       render json: members
     end
 
     def show
     	render json: Member.find(params[:id]).as_json({
-        include: [:donations, :comments]
+        include: [:donations, :comments, :sponsors]
         })
     end
 
