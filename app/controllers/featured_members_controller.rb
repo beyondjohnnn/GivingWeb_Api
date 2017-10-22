@@ -4,7 +4,7 @@ class FeaturedMembersController < ApplicationController
       members = FeaturedMember.order(:position)
       members = members.map do |featured_member|
         featured_member.member.as_json({
-          include: [:donations, :comments]
+          include: [:donations, :comments, :sponsors]
         })
       end
       render json: members
