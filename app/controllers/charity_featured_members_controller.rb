@@ -6,7 +6,7 @@ class CharityFeaturedMembersController < ApplicationController
       payload = {
         position: featured_member.position,
         member: featured_member.member.as_json({
-          include: [:donations, :comments]
+          include: [:donations, :comments, :sponsors]
         })
       }
     end
