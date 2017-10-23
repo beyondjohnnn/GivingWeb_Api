@@ -3,12 +3,11 @@ class CharityFeaturedMembersController < ApplicationController
   def renderMember(charity_id)
     featured_members = CharityFeaturedMember.where(charity_id: charity_id).order(:position)
     featured_members = featured_members.map do |featured_member|
-      payload = {
-        position: featured_member.position,
-        member: featured_member.member.as_json({
-          include: [:donations, :comments]
-        })
-      }
+      member = featured_member.member.as_json({
+        include: [:donations, :comments, :sponsors]
+      })
+      member["position"] = featured_member.position
+      member
     end
     return featured_members
   end
