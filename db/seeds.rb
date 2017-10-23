@@ -66,7 +66,6 @@ members.each do |member|
 		comment['member_id'] = dbMember.id
 		Comment.create(comment)
 	end
-	# pp related_comments
 end
 
 puts "Members done, moving on to recovering donations..."
@@ -77,6 +76,7 @@ donations.each do |donation|
 	donation.delete("post_id")
 	Donation.create(donation)
 end
+
 # linking members to url images and adding relivent tags
 Member.find(21).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139584/SL-profile-pic-1_boe8ck.jpg")
 Member.find(20).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/guitar-445387_1920_ppu9nz.jpg")
@@ -118,6 +118,7 @@ Member.find(2).update_column(:tags, "Empolyment")
 Member.find(1).update_column(:url_image, "http://res.cloudinary.com/givingweb/image/upload/v1508139582/Edward-Ewa-square_ntsaqd.png")
 Member.find(1).update_column(:tags, "Education")
 
+john_lewis = Sponsor.create({name: "John Lewis", sponsor_url_image: "http://res.cloudinary.com/givingweb/image/upload/v1508498793/john-lewis_sin7gw.png"})
+Sponsorship.create({member_id: 6, sponsor_id: 1})
 
-puts "was successfully! Rails is ready, winner
-"
+puts "was successfully! Rails is ready, winner"
