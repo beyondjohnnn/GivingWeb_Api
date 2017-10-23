@@ -16,6 +16,9 @@ gem 'puma', '~> 3.7'
 # and mysql2 for legacy, TODO: remove after migration of old db
 gem 'mysql2'
 
+# omniauth-facebook login
+gem 'omniauth-facebook'
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 # gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
