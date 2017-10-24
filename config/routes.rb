@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 	resources :charges
 	resources :sponsors
 	resources :sponsorships
+	post '/search', to: 'search#show'
 	post '/sessions/charities', to: 'sessions#create_charity'
 	post '/registrations/charities', to: 'registrations#create_charity'
 end
