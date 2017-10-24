@@ -1,11 +1,6 @@
 Rails.application.routes.draw do
 	resources :registrations
 	resources :sessions
-	resources :auth
-
-	# Needs to be conabilized to work with api login
-	# devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-
 	resources :members
 	resources :comments
 	resources :charities
