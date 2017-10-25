@@ -2,23 +2,27 @@ class SearchController < ApplicationController
 
   def show
 
-    key = "%#{params[:searchTerm].downcase}%"
+    fuzzy = "%#{params[:searchTerm].downcase}%"
+    priority = "#{params[:searchTerm].downcase}%"
+
+    @member_results_by_name = Member.limit(3).where('lower(name) LIKE ?', priority).order(:name)
 
     @member_results = Member.limit(3).where(
       'lower(name) LIKE ? OR lower(info) LIKE ? OR lower(snippet) LIKE ? OR lower(location) LIKE ?',
-      key,
-      key,
-      key,
-      key
+      fuzzy,
+      fuzzy,
+      fuzzy,
+      fuzzy
     ).order(:name)
+    sorted_by_name = @member_results_by_name.merge(@member_results)
 
     @charity_results = Charity.limit(3).where(
       'lower(name) LIKE ? OR lower(description) LIKE ?',
-      key,
-      key
+      fuzzy,
+      fuzzy
     ).order(:name)
 
-    render json: ({ members: @member_results, charities: @charity_results })
+    render json: ({ members: sorted_by_name, charities: @charity_results })
   end
 
 end
