@@ -15,6 +15,9 @@ class SearchController < ApplicationController
       fuzzy
     ).order(:name)
     sorted_by_name = @member_results_by_name.merge(@member_results)
+    sorted_by_name = sorted_by_name.as_json({
+        include: [:donations, :comments, :sponsors]
+      })
 
     @charity_results = Charity.limit(3).where(
       'lower(name) LIKE ? OR lower(description) LIKE ?',

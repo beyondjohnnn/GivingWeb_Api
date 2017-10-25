@@ -9,7 +9,7 @@ class MembersController < ApplicationController
 
     def show
     	render json: Member.find(params[:id]).as_json({
-        include: [:donations, :comments, :sponsors]
+          include: [:donations, :comments, :sponsors]
         })
     end
 
