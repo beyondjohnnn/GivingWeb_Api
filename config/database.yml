@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
-  database: givingweb_api_production
-  username: givingweb_api
+  database: givingweb_api_development
+  username: eoghan
   password: <%= ENV['GIVINGWEB_API_DATABASE_PASSWORD'] %>
+  host: gwdb.cnjitiaxyzr1.us-east-2.rds.amazonaws.com
+# psql --host=gwdb.cnjitiaxyzr1.us-east-2.rds.amazonaws.com --port=5432 --username=eoghan --dbname=givingweb_api_development --password -f sqlfile.sql 
