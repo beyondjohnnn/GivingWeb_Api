@@ -6,8 +6,10 @@ require_relative './backup_helper'
 # File.directory?(directory)
 
 DATABASE_NAME = "givingweb_api_development"
-BACKUP_DIR = "#{File.expand_path(File.dirname(__FILE__))}/../../db/backup"
-FILE_LOCATION = BackUpHelper.new(BACKUP_DIR).getBackupFileName()
+BACKUP_DIR = "#{File.expand_path(File.dirname(__FILE__))}/../../db/backup/"
+
+backupHelper = BackUpHelper.new(BACKUP_DIR)
+FILE_LOCATION = backupHelper.getBackupPath()
 
 namespace :db do
 
