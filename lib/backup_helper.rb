@@ -2,6 +2,8 @@ require 'fileutils'
 
 class BackUpHelper
 
+  attr_reader :directory, :backup_time, :folder
+
   def initialize(target_directory)
     @directory = target_directory
     @backup_time = get_time()
