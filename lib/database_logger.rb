@@ -1,5 +1,5 @@
 
-require_relative './Sql_runner'
+require_relative './sql_runner'
 require 'fileutils'
 
 def log_database(log_file_location)
