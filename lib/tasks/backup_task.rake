@@ -4,7 +4,6 @@
 
 require_relative './../backup_helper'
 require_relative './../database_logger'
-require 'fileutils'
 
 DATABASE_NAME = "givingweb_api_development"
 BACKUP_DIR = "#{File.expand_path(File.dirname(__FILE__))}/../../db/backup/"
