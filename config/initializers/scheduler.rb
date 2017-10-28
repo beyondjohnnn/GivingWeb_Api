@@ -3,6 +3,6 @@ require 'rufus-scheduler'
 
 scheduler = Rufus::Scheduler::singleton
 
-scheduler.every '1m' do
-  system("rake db:dump")
+scheduler.every '5s' do
+  system("rake db:dump_zip")
 end
