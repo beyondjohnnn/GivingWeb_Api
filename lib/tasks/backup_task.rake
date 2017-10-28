@@ -3,6 +3,7 @@
 # TODO when in production confirm this still works as expected
 
 require_relative './../backup_helper'
+require_relative './../database_logger'
 # File.directory?(directory)
 
 DATABASE_NAME = "givingweb_api_development"
@@ -17,11 +18,13 @@ namespace :db do
   task :dump => :environment do
     puts "Backup made at #{backup_helper.backup_time}"
     system("pg_dump #{DATABASE_NAME} > #{FILE_LOCATION}.sql")
+    system("#{log_database()} > #{LOG_LOCATION}.txt")
   end
 
   task :dump_zip => :environment do
     puts "Zipped backup made at #{backup_helper.backup_time}"
     system("pg_dump #{DATABASE_NAME} | gzip > #{FILE_LOCATION}.gz")
+    system("#{log_database()} > #{LOG_LOCATION}.txt")
   end
 
   task :restore => :environment do
