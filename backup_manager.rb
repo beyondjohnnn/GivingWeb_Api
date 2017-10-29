@@ -1,8 +1,12 @@
 require 'fileutils'
+require_relative './lib/sql_runner'
+require_relative './lib/backup_helper'
+require_relative './lib/database_logger'
 
 class BackUpManager
   DIVIDER = "--------------------------------------------------"
-  def initialize(backup_dir)
+  def initialize(database_name, backup_dir)
+    @database_name = database_name
     @backup_dir = backup_dir
   end
 
@@ -20,10 +24,10 @@ class BackUpManager
             "2) Change how many backup to store before deleting old ones\n" +
             "3) Exit"
       end
-      p input
+
       case input
         when "1"
-          run_restore_backup()
+          run_restore_backup_menu()
         when "2"
           run_change_storage()
         when "3"
@@ -52,7 +56,7 @@ class BackUpManager
     puts "What would you like to do"
   end
 
-  def run_restore_backup()
+  def run_restore_backup_menu()
     files = get_backup_file_list()
 
     input_options = []
@@ -66,6 +70,15 @@ class BackUpManager
         puts "#{(index+1).to_s}) #{file}"
       end
       puts "#{input_options[-1]}) Back"
+    end
+    selected_file = files[(input.to_i)-1]
+
+    if(input != input_options[-1])
+      question = "Restoring #{selected_file} will override the current" +
+      "database with this (a backup of the current state will also be made)"
+      if(confirm_input(question))
+        restore_from_file(selected_file)
+      end
     end
   end
 
@@ -88,6 +101,31 @@ class BackUpManager
     end
   end
 
+  def confirm_input(question)
+    puts question
+    puts "Are you sure?"
+    input = get_user_input(["1", "2"]) do
+      puts "1) yes\n2) no"
+    end
+    return input == "1"
+  end
+
+  def restore_from_file(file)
+    backup_helper = BackUpHelper.new(@backup_dir)
+    system("pg_dump #{@database_name} | gzip > #{backup_helper.get_backup_file_name()}.gz")
+    log_database("#{backup_helper.get_log_file_name}.txt")
+    delete_all_data()
+    system("gunzip -c #{@backup_dir}#{file}/#{file}.gz | psql #{@database_name}")
+  end
+
+  def delete_all_data()
+    tables = SqlRunner.run("SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname = 'public';")
+    table_data = tables.map do |table|
+      command = "DROP TABLE #{table["tablename"]}"
+      puts command
+      count = SqlRunner.run(command)
+    end
+  end
 end
 
-BackUpManager.new("./db/backup/").run()
+BackUpManager.new("givingweb_api_development" ,"./db/backup/").run()
