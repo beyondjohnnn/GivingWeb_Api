@@ -15,17 +15,12 @@ class BackUpManager
       puts DIVIDER
       puts_manager_intro()
 
-      input = nil
-      valid_input = false
-      while(!valid_input)
+      input = get_user_input(["1", "2", "3"]) do
         puts "1) Restore a backup\n"+
-          "2) Change how many backup to store before deleting old ones\n" +
-          "3) Exit"
-        input = gets.chomp
-        valid_input = is_input_valid?(input, ["1", "2", "3"])
-        puts DIVIDER
+            "2) Change how many backup to store before deleting old ones\n" +
+            "3) Exit"
       end
-
+      p input
       case input
         when "1"
           run_restore_backup()
@@ -49,6 +44,7 @@ class BackUpManager
       valid_input = is_input_valid?(input, options)
       puts DIVIDER
     end
+    return input
   end
 
   def puts_manager_intro()
