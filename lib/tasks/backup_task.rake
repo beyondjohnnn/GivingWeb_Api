@@ -9,8 +9,6 @@ DATABASE_NAME = "givingweb_api_development"
 BACKUP_DIR = "#{File.expand_path(File.dirname(__FILE__))}/../../db/backup/"
 
 backup_helper = BackUpHelper.new(DATABASE_NAME, BACKUP_DIR)
-FILE_LOCATION = backup_helper.get_backup_file_name()
-LOG_LOCATION = backup_helper.get_log_file_name()
 
 namespace :db do
 

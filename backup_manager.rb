@@ -84,7 +84,7 @@ class BackUpManager
       if(confirm_input(question))
         make_backup()
         delete_all_data()
-        restore_zipped_backup(file)
+        restore_zipped_backup(selected_file)
       end
     end
   end
@@ -123,7 +123,7 @@ class BackUpManager
   end
 
   def run_change_storage()
-    puts "run_change_storage"
+    p "run change storage"
   end
 
   def get_backup_file_list()
@@ -134,4 +134,5 @@ class BackUpManager
   end
 end
 
-BackUpManager.new("givingweb_api_development" ,"./db/backup/").run()
+directory = "#{File.expand_path(File.dirname(__FILE__))}/db/backup/"
+BackUpManager.new("givingweb_api_development", directory).run()
