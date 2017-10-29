@@ -35,3 +35,5 @@ namespace :db do
   end
 
 end
+
+# use with great discretion ```bundle exec rake db:rebuild```
