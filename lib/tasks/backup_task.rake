@@ -22,3 +22,5 @@ namespace :db do
     backup_helper.make_zipped_backup()
   end
 end
+
+# use with great discretion ```bundle exec rake db:rebuild```

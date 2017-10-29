@@ -78,7 +78,7 @@ class BackUpManager
 
     if(input != input_options[-1])
       question = "Restoring #{selected_file} will override the current" +
-      "database with this (a backup of the current state will also be made)"
+      "database (a backup of the current state will be made prior to the restore)"
       if(confirm_input(question))
         make_backup()
         delete_all_data()
@@ -127,7 +127,6 @@ class BackUpManager
     return files.reverse()
   end
 end
-
 
 directory = "#{File.expand_path(File.dirname(__FILE__))}/db/backup/"
 BackUpManager.new("givingweb_api_development", directory).run()
