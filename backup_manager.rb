@@ -19,18 +19,21 @@ class BackUpManager
       puts DIVIDER
       puts_manager_intro()
 
-      input = get_user_input(["1", "2", "3"]) do
-        puts "1) Restore a backup\n"+
-            "2) Change how many backup to store before deleting old ones\n" +
-            "3) Exit"
+      input = get_user_input(["1", "2", "3", "4"]) do
+        puts "1) Make backup of current state\n" +
+        "2) Restore a backup\n"+
+        "3) Change how many backup to store before deleting old ones\n" +
+        "4) Exit"
       end
 
       case input
         when "1"
-          run_restore_backup_menu()
+          make_backup()
         when "2"
-          run_change_storage()
+          run_restore_backup_menu()
         when "3"
+          run_change_storage()
+        when "4"
           run = false
       end
     end
@@ -111,9 +114,7 @@ class BackUpManager
   end
 
   def restore_from_file(file)
-    backup_helper = BackUpHelper.new(@backup_dir)
-    system("pg_dump #{@database_name} | gzip > #{backup_helper.get_backup_file_name()}.gz")
-    log_database("#{backup_helper.get_log_file_name}.txt")
+    make_backup()
     delete_all_data()
     system("gunzip -c #{@backup_dir}#{file}/#{file}.gz | psql #{@database_name}")
   end
@@ -125,6 +126,14 @@ class BackUpManager
       puts command
       count = SqlRunner.run(command)
     end
+  end
+
+  def make_backup()
+    puts "starting backup"
+    backup_helper = BackUpHelper.new(@backup_dir)
+    system("pg_dump #{@database_name} | gzip > #{backup_helper.get_backup_file_name()}.gz")
+    log_database("#{backup_helper.get_log_file_name}.txt")
+    puts "backup made"
   end
 end
 
