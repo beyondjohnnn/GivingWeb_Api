@@ -5,7 +5,7 @@ class BackUpHelper
   attr_reader :directory, :backup_time, :folder
 
   def initialize(database, target_directory)
-    @max_storage = 5 # in megabytes
+    @max_storage = 1 # in megabytes
     @database = database
     @directory = target_directory
     @backup_time = get_time()
@@ -81,7 +81,7 @@ class BackUpHelper
     size = calc_directory_size_in_mega_bytes()
     result = size >= @max_storage
     if(result)
-      puts "Storage over #{@max_storage}: #{size}"
+      puts "Storage over max of #{@max_storage}MB: (#{size}MB)"
     end
     return result
   end
