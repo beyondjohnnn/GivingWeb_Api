@@ -1,3 +1,4 @@
+
 require 'fileutils'
 require_relative './lib/sql_runner'
 require_relative './lib/backup_helper'
@@ -17,11 +18,10 @@ class BackUpManager
       puts "Welcome to the backup managaer."
       puts "What would you like to do"
 
-      input = get_user_input(["1", "2", "3", "4"]) do
+      input = get_user_input(["1", "2", "3"]) do
         puts "1) Make backup of current state\n" +
         "2) Restore a backup\n"+
-        "3) Change how many backup to store before deleting old ones\n" +
-        "4) Exit"
+        "3) Exit"
       end
 
       case input
@@ -30,8 +30,6 @@ class BackUpManager
         when "2"
           run_restore_backup_menu()
         when "3"
-          run_change_storage()
-        when "4"
           run = false
       end
     end
@@ -122,10 +120,6 @@ class BackUpManager
     system("gunzip -c #{@backup_dir}#{folder}/#{folder}.gz | psql #{@database_name}")
   end
 
-  def run_change_storage()
-    p "run change storage"
-  end
-
   def get_backup_file_list()
     files = Dir["#{@backup_dir}*"].map do |file|
       file.split("/")[-1]
@@ -133,6 +127,7 @@ class BackUpManager
     return files.reverse()
   end
 end
+
 
 directory = "#{File.expand_path(File.dirname(__FILE__))}/db/backup/"
 BackUpManager.new("givingweb_api_development", directory).run()

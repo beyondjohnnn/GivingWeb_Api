@@ -5,11 +5,11 @@ class BackUpHelper
   attr_reader :directory, :backup_time, :folder
 
   def initialize(database, target_directory)
+    @max_storage = 5 # in megabytes
     @database = database
     @directory = target_directory
     @backup_time = get_time()
     @folder = "#{@directory}backup-#{@backup_time}/"
-    @max_storage = 1
   end
 
   def use_current_time()
@@ -96,7 +96,6 @@ class BackUpHelper
         total += File.size(file)
       end
     end
-    p total/1000000
     return total/1000000
   end
 end
