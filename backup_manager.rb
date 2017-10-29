@@ -11,9 +11,6 @@ class BackUpManager
   end
 
   def run()
-    ## set the time interval between new backups
-    # restore a selected database
-    # set the max space to use up / max number of backups to make
     run = true
     while(run)
       puts DIVIDER
@@ -99,9 +96,10 @@ class BackUpManager
   end
 
   def get_backup_file_list()
-    return Dir["#{@backup_dir}*"].map do |file|
+    files = Dir["#{@backup_dir}*"].map do |file|
       file.split("/")[-1]
     end
+    return files.reverse()
   end
 
   def confirm_input(question)
@@ -116,13 +114,13 @@ class BackUpManager
   def restore_from_file(file)
     make_backup()
     delete_all_data()
-    system("gunzip -c #{@backup_dir}#{file}/#{file}.gz | psql #{@database_name}")
+    restore_zipped_backup(file)
   end
 
   def delete_all_data()
     tables = SqlRunner.run("SELECT tablename FROM pg_catalog.pg_tables WHERE schemaname = 'public';")
     table_data = tables.map do |table|
-      command = "DROP TABLE #{table["tablename"]}"
+      command = "DROP TABLE #{table["tablename"]};"
       puts command
       count = SqlRunner.run(command)
     end
@@ -130,10 +128,17 @@ class BackUpManager
 
   def make_backup()
     puts "starting backup"
-    backup_helper = BackUpHelper.new(@backup_dir)
-    system("pg_dump #{@database_name} | gzip > #{backup_helper.get_backup_file_name()}.gz")
-    log_database("#{backup_helper.get_log_file_name}.txt")
+    backup_helper = BackUpHelper.new(@database_name, @backup_dir)
+    backup_helper.make_zipped_backup()
     puts "backup made"
+  end
+
+  def restore_backup(folder)
+    system("psql #{@database_name} < #{@backup_dir}#{folder}/#{folder}.sql")
+  end
+
+  def restore_zipped_backup(folder)
+    system("gunzip -c #{@backup_dir}#{folder}/#{folder}.gz | psql #{@database_name}")
   end
 end
 
