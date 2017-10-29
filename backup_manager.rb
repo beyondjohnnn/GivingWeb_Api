@@ -14,7 +14,8 @@ class BackUpManager
     run = true
     while(run)
       puts DIVIDER
-      puts_manager_intro()
+      puts "Welcome to the backup managaer."
+      puts "What would you like to do"
 
       input = get_user_input(["1", "2", "3", "4"]) do
         puts "1) Make backup of current state\n" +
@@ -51,9 +52,13 @@ class BackUpManager
     return input
   end
 
-  def puts_manager_intro()
-    puts "Welcome to the backup managaer."
-    puts "What would you like to do"
+  def is_input_valid?(input, options)
+    result = options.include?(input)
+    if(!result)
+      to_output = options.join(", ")
+      puts "Error please enter: #{to_output}"
+    end
+    return result
   end
 
   def run_restore_backup_menu()
@@ -77,29 +82,11 @@ class BackUpManager
       question = "Restoring #{selected_file} will override the current" +
       "database with this (a backup of the current state will also be made)"
       if(confirm_input(question))
-        restore_from_file(selected_file)
+        make_backup()
+        delete_all_data()
+        restore_zipped_backup(file)
       end
     end
-  end
-
-  def run_change_storage()
-    puts "run_change_storage"
-  end
-
-  def is_input_valid?(input, options)
-    result = options.include?(input)
-    if(!result)
-      to_output = options.join(", ")
-      puts "Error please enter: #{to_output}"
-    end
-    return result
-  end
-
-  def get_backup_file_list()
-    files = Dir["#{@backup_dir}*"].map do |file|
-      file.split("/")[-1]
-    end
-    return files.reverse()
   end
 
   def confirm_input(question)
@@ -109,12 +96,6 @@ class BackUpManager
       puts "1) yes\n2) no"
     end
     return input == "1"
-  end
-
-  def restore_from_file(file)
-    make_backup()
-    delete_all_data()
-    restore_zipped_backup(file)
   end
 
   def delete_all_data()
@@ -139,6 +120,17 @@ class BackUpManager
 
   def restore_zipped_backup(folder)
     system("gunzip -c #{@backup_dir}#{folder}/#{folder}.gz | psql #{@database_name}")
+  end
+
+  def run_change_storage()
+    puts "run_change_storage"
+  end
+
+  def get_backup_file_list()
+    files = Dir["#{@backup_dir}*"].map do |file|
+      file.split("/")[-1]
+    end
+    return files.reverse()
   end
 end
 
