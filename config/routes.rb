@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 	resources :featured_members
 	resources :charity_featured_members
 	resources :charges
+  resources :donations
 	resources :sponsors
 	resources :sponsorships
 	post '/search', to: 'search#show'
