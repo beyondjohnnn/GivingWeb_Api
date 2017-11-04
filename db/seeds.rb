@@ -122,4 +122,10 @@ Member.find(1).update_column(:tags, "Education")
 john_lewis = Sponsor.create({name: "John Lewis", sponsor_url_image: "https://s3-eu-west-1.amazonaws.com/givingweb-storage/images/john-lewis_sin7gw.png"})
 Sponsorship.create({member_id: 6, sponsor_id: 1})
 
+puts "Setting up Featured Members"
+FeaturedMember.create({member_id: 20, position: 1})
+FeaturedMember.create({member_id: 17, position: 2})
+FeaturedMember.create({member_id: 16, position: 3})
+
+
 puts "was successfully! Rails is ready, winner"
